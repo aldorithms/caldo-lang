@@ -5,10 +5,9 @@ Documentation for the Caldo Programming Language
 
 Caldo will be a object-oriented/class-based compiled programming language syntaxically based on modern languages like Go, V, and Rust.
 Caldo will aim to be much more mneumonic than other languages, to reduce the learning curve for users.
+Caldo's principle for adding features is that "if it can be done, do it".
 
 ## Introduction
-
-### Boilerplate
 So to start off, the default Caldo-Lang entry point will be ``main`` , like in most compiled languages.
 The typing structure will be very familiar to most programmers who have done anything related to the C Language.
 Declare the main function with ``fn main()``, followed by two brackets ``{ }`` which can be spaced out however you like.
@@ -27,18 +26,18 @@ fn main() u0
 	ret u0;
 }
 ```
-### Variables
+## Variables
 This is what the structure of a normal variable declaration will look like.
 ```
 let foo be <type> = value;
 
 let bar := value; // will assume
 ```
-#### Primitives
+### Primitives
 Caldo-lang has 15 primitive data types, including 5 unsigned integers, 4 signed integers, 2 floating points, 3 character types, and a boolean type.
 These are: ``u0``, ``u8``, ``u16``, ``u32``, ``u64``, ``i8``, ``i16``, ``i32``, ``i64``, ``f32``, ``f64``, ``c8``, ``c16``, ``c32``, & ``bool``.
 
-##### Integers
+### Integers
 This is a basic declaration for a 64-bit unsigned integer.
 ```
 let foo be u64 = 563345; //let foo be a 64-bit unsigned integer equal to 563345;
@@ -48,28 +47,8 @@ By default, integers will be unsigned. There is no default size, rather the size
 let foo be = 255; //Since 255 < 2^8, foo will be type u8;
 let bar := 65540; //Since 65540 > 2^16, bar will be type u32;
 ```
-##### Floating 
+### Floating 
 
-
-### Functions
-I originally did not want to use function declarations ``fn`` because I felt they were just bloatware.
-In assembly, subroutines and global variables are declared the same way.
-Therefore, it seemed silly to add more work for the compiler.
-However, I also felt this might be difficult for new users to pick-up, so I kept this feature in.
-
-```
-fn function(arguments) <return type>
-{
-	statements;
-}
-```
-If your function is only one line, make it return itself. Return type will be assumed.
-```
-fn square(i32 num) = num * num;
-
-fn fibonacci(u32 num) = ( n == 1 or 0 ) ? 1 : fibonacci(n - 1) + fibonacci(n - 2);
-```
-### Object-Orientation
 #### Arrays
 ```
 let foo be i32[4] = {1, 2, 3, 4};
@@ -91,20 +70,73 @@ Variable bar becomes a single integer with the same bits in the same order.
 let foo be i8[4] = { 1, 2,};
 let bar be = i16(foo); //00000001.00000010 = 256 + 2 = 258
 ```
-#### Simple Strings
+### Simple Strings
 Simple strings, known as type ``str``, are automatic character arrays that generate based on the largest character value.
 If the ``str``'s largest member is a c16, all members will be c16, and so fourth with c32.
 ```
 let foo be str = "string";
 let bar be c8 = '';
 ```
-#### Simple Tuple Array
+### Simple Tuple Array
 Simple tuples, known as ``t32``, allow ``u32``, ``i32``, ``f32``, and ``c32`` types only.
 ```
 let foo be t32[4] = {45, -76, 4.0f, '%'} // {unsigned integer, signed integer, floating point, UTF-32 character }
 let bar be c32 = t32[3]; //pass value of
 ```
-#### Complex Tuples
+## Control Flow
+### if/else statements
+```
+if(...)
+{
+	//code goes here..
+}
+else
+{
+	//code goes here...
+}
+```
+
+### For loops
+```
+for (u8 i = 0, i < 255, i++)
+{
+	//code goes here..
+}
+
+for u8 j = 0, j < 255, j++
+{
+	//code goes here
+}
+```
+Size of i will be defined by size of array automatically.
+```
+let foo be t32 = {432, -4532, 'w', 56.9, -432}
+for i in foo
+{
+	//code goes here...
+}
+```
+## Functions
+I originally did not want to use function declarations ``fn`` because I felt they were just bloatware.
+In assembly, subroutines and global variables are declared the same way.
+Therefore, it seemed silly to add more work for the compiler.
+However, I also felt this might be difficult for new users to pick-up, so I kept this feature in.
+
+```
+fn function(arguments) <return type>
+{
+	statements;
+}
+```
+If your function is only one line, make it return itself. Return type will be assumed.
+```
+fn square(i32 num) = num * num;
+
+fn fibonacci(u32 num) = ( n == 1 or 0 ) ? 1 : fibonacci(n - 1) + fibonacci(n - 2);
+```
+## Object-Orientation
+
+### Complex Tuples
 Complex tuples are generally more like namespaces for variables.
 ```
 let foo be tuple = 
@@ -115,7 +147,7 @@ let foo be tuple =
 
 let bar be tuple = { x = 1, y = 3.0, msg = "Bye dad!\n" }
 ```
-#### Simple Objects
+### Simple Objects
 Much like the complex tuple, a simple object is like a namespace for variables (called attributes), and functions (called methods).
 A simple object can be declared with the data type ``obj``.
 
@@ -155,7 +187,7 @@ let foo be obj =
 };
 foo.sayHello()
 ```
-#### Structures
+### Structures
 A ``struct`` is a template object that can only contain member attributes.
 You can think of a ``tuple`` as an instance of a ``struct``, or a ``struct`` as a template for a ``tuple``.
 For this reason, member attributes cannot be assigned a value during structure declaration.
@@ -180,14 +212,14 @@ struct Parent
 	f32 z;
 }
 
-strict myStruct ext Parent
+struct myStruct ext Parent
 {
 	c8 a;
 }
 
 let foo be myStruct = { x = -45, y = 454, z = 894.0, a = 'd' };
 ```
-#### Classes
+### Classes
 A ``class`` is like a ``struct`` that may contain member methods.
 ```
 class myClass
@@ -205,4 +237,36 @@ or like this:
 ```
 let foo := myClass();
 let bar := myClass(foo);
+```
+### Template Structures
+```
+template <type T> struct myStruct
+{
+	T x;
+	T y;
+}
+
+let foo be myStruct<i32> = { x = 54, y = -543};
+```
+Can have multiple template types.
+```
+template <type T1, T2> struct myStruct
+{
+	T1 x;
+	T2 y;
+}
+
+let foo be myStruct<u32, i32> = { x = 54, y = -543};
+```
+### Template Classes
+```
+template <type T1, T2> class myClass
+{
+	T1 attr1
+	T2 attr2
+	myClass();
+	~myClass();
+{
+
+let foo be myClass();
 ```
