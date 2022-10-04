@@ -7,8 +7,7 @@ Caldo will be a object-oriented/class-based compiled programming language syntax
 Caldo will aim to be much more mneumonic than other languages, to reduce the learning curve for users.
 
 ## Introduction
-### Features
-## Tutorial
+
 ### Boilerplate
 So to start off, the default Caldo-Lang entry point will be ``main`` , like in most compiled languages.
 The typing structure will be very familiar to most programmers who have done anything related to the C Language.
@@ -65,8 +64,14 @@ fn function(arguments
 }
 ```
 ### Object-Orientation
-
-
+#### Tuples
+```
+let foo be tuple = 
+{  
+	let x be i32 = 45;
+	let msg be str = "Hi mom!\n";
+}
+```
 #### Simple Objects
 A simple object can be declared with the data type ``obj``.
 
@@ -150,7 +155,7 @@ class myClass
 Declare an instance of a ``class`` like this:
 ```
 let foo be myClass = myClass();
-let bar be myClass = myClass(foo);
+let bar be myClass(foo);
 ```
 or like this:
 ```
