@@ -5,7 +5,7 @@ Documentation for the Caldo Programming Language
 
 Caldo will be a object-oriented/class-based compiled programming language syntaxically based on modern languages like Go, V, and Rust.
 Caldo will aim to be much more mneumonic than other languages, to reduce the learning curve for users.
-Caldo's principle for adding features is that "if it can be done, do it".
+Caldo's principle for adding features is that "if it can't be done, remove it later".
 
 ## Introduction
 So to start off, the default Caldo-Lang entry point will be ``main`` , like in most compiled languages.
@@ -35,8 +35,12 @@ let bar := value; // will assume
 ```
 ### Primitives
 Caldo-lang has 15 primitive data types, including 5 unsigned integers, 4 signed integers, 2 floating points, 3 character types, and a boolean type.
-These are: ``u0``, ``u8``, ``u16``, ``u32``, ``u64``, ``i8``, ``i16``, ``i32``, ``i64``, ``f32``, ``f64``, ``c8``, ``c16``, ``c32``, & ``bool``.
-
+These are: 
+``u0``, ``u8``, ``u16``, ``u32``, ``u64``, 
+``i8``, ``i16``, ``i32``, ``i64``,
+``f32``, ``f64``, 
+``c8``, ``c16``, ``c32``,
+``b8``.
 ### Integers
 This is a basic declaration for a 64-bit unsigned integer.
 ```
@@ -48,8 +52,10 @@ let foo be = 255; //Since 255 < 2^8, foo will be type u8;
 let bar := 65540; //Since 65540 > 2^16, bar will be type u32;
 ```
 ### Floating 
+```
 
-#### Arrays
+```
+### Arrays
 ```
 let foo be i32[4] = {1, 2, 3, 4};
 ```
@@ -82,6 +88,15 @@ Simple tuples, known as ``t32``, allow ``u32``, ``i32``, ``f32``, and ``c32`` ty
 ```
 let foo be t32[4] = {45, -76, 4.0f, '%'} // {unsigned integer, signed integer, floating point, UTF-32 character }
 let bar be c32 = t32[3]; //pass value of
+```
+### RGB Array
+```
+let foo be rgb = { 43, 54, 234 };
+let bar be rgb = xFF34E4;
+```
+```
+let foo be u8[3] = { 255, 255, 255 };
+let bar be rgb(foo);
 ```
 ## Control Flow
 ### if/else statements
