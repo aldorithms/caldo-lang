@@ -1,4 +1,4 @@
-# Caldo-lang
+# Caldo-Lang
 Documentation for the Caldo Programming Language
 
 ## What is Caldo?
@@ -79,10 +79,11 @@ Since array members must be the same size, the size each variable will be taken 
 let foo be = {255, 2, 3, 4}; //has four members, with the smallest being 8-bit unsigned integer.
 let bar := { 45, 67, 4543, 2.1} //has four members, with a floating point. All members are f64.
 ```
-
+Arrays have certain member functions that can be called.
 ```
 let foo be i64 = { 4, 5, 4, 4, 56, 56}
-sizeof(foo); // returns bytes * members = 
+sizeof(foo); // returns bytes * members = 8 * 6 = 48 bytes
+foo.length(); // returns members = 6
 ```
 This is allowed IF AND ONLY IF ``sizeof(foo) == sizeof(bar)``. 
 Variable bar becomes a single integer with the same bits in the same order.
@@ -90,7 +91,21 @@ Variable bar becomes a single integer with the same bits in the same order.
 let foo be i8[4] = { 1, 2,};
 let bar be = i16(foo); //00000001.00000010 = 256 + 2 = 258
 ```
-#### Tuples
+#### Simple Strings
+Simple strings, known as type ``str``, are automatic character arrays that generate based on the largest character value.
+If the ``str``'s largest member is a c16, all members will be c16, and so fourth with c32.
+```
+let foo be str = "string";
+let bar be c8 = '';
+```
+#### Simple Tuple Array
+Simple tuples, known as ``t32``, allow ``u32``, ``i32``, ``f32``, and ``c32`` types only.
+```
+let foo be t32[4] = {45, -76, 4.0f, '%'} // {unsigned integer, signed integer, floating point, UTF-32 character }
+let bar be c32 = t32[3]; //pass value of
+```
+#### Complex Tuples
+Complex tuples are generally more like namespaces for variables.
 ```
 let foo be tuple = 
 {  
@@ -100,11 +115,8 @@ let foo be tuple =
 
 let bar be tuple = { x = 1, y = 3.0, msg = "Bye dad!\n" }
 ```
-A special kind of ``tuple``, also known as ``t32``, only allowed ``u32``, ``i32``, ``f32``, or ``c32``
-```
-
-```
 #### Simple Objects
+Much like the complex tuple, a simple object is like a namespace for variables (called attributes), and functions (called methods).
 A simple object can be declared with the data type ``obj``.
 
 ```
@@ -145,7 +157,7 @@ foo.sayHello()
 ```
 #### Structures
 A ``struct`` is a template object that can only contain member attributes.
-You can think of a ``tuple`` as an instance of a ``struct``.
+You can think of a ``tuple`` as an instance of a ``struct``, or a ``struct`` as a template for a ``tuple``.
 For this reason, member attributes cannot be assigned a value during structure declaration.
 ```
 struct myStruct
