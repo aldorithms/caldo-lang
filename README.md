@@ -58,12 +58,38 @@ Therefore, it seemed silly to add more work for the compiler.
 However, I also felt this might be difficult for new users to pick-up, so I kept this feature in.
 
 ```
-fn function(arguments
+fn function(arguments) <return type>
 {
 	statements;
 }
 ```
+If your function is only one line, make it return itself. Return type will be assumed.
+```
+fn square(i32 num) = num * num;
+
+fn fibonacci(u32 num) = ( n == 1 or 0 ) ? 1 : fibonacci(n - 1) + fibonacci(n - 2);
+```
 ### Object-Orientation
+#### Arrays
+```
+let foo be i32[4] = {1, 2, 3, 4};
+```
+Since array members must be the same size, the size each variable will be taken by the highest priority variable, followed by largest value.
+```
+let foo be = {255, 2, 3, 4}; //has four members, with the smallest being 8-bit unsigned integer.
+let bar := { 45, 67, 4543, 2.1} //has four members, with a floating point. All members are f64.
+```
+
+```
+let foo be i64 = { 4, 5, 4, 4, 56, 56}
+sizeof(foo); // returns bytes * members = 
+```
+This is allowed IF AND ONLY IF ``sizeof(foo) == sizeof(bar)``. 
+Variable bar becomes a single integer with the same bits in the same order.
+```
+let foo be i8[4] = { 1, 2,};
+let bar be = i16(foo); //00000001.00000010 = 256 + 2 = 258
+```
 #### Tuples
 ```
 let foo be tuple = 
@@ -71,6 +97,12 @@ let foo be tuple =
 	let x be i32 = 45;
 	let msg be str = "Hi mom!\n";
 }
+
+let bar be tuple = { x = 1, y = 3.0, msg = "Bye dad!\n" }
+```
+A special kind of ``tuple``, also known as ``t32``, only allowed ``u32``, ``i32``, ``f32``, or ``c32``
+```
+
 ```
 #### Simple Objects
 A simple object can be declared with the data type ``obj``.
